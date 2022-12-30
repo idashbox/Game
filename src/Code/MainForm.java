@@ -7,31 +7,39 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class MainForm extends JFrame {
     private JPanel panelMain;
     private JTable tableGameField;
     private JLabel labelStatus;
+    private JButton Green;
+    private JButton Blue;
+    private JButton Orange;
+    private JButton Yellow;
+    private JButton Red;
+    private JButton Violet;
 
     private static final int DEFAULT_COL_COUNT = 10;
-    private static final int DEFAULT_ROW_COUNT = 6;
-    private static final int DEFAULT_COLOR_COUNT = 7;
+    private static final int DEFAULT_ROW_COUNT = 10;
+    private static final int DEFAULT_COLOR_COUNT = 6;
 
     private static final int DEFAULT_GAP = 8;
     private static final int DEFAULT_CELL_SIZE = 70;
+    static int[][] colors = {{0, 0, 255}, {34, 139, 34}, {255, 255, 0}, {178, 34, 34}, {255, 140, 0}, {148, 0, 211}};
 
-    private static final Color[] COLORS = {
-            Color.BLUE,
-            Color.RED,
-            Color.YELLOW,
-            Color.GREEN,
-            Color.MAGENTA,
-            Color.CYAN,
-            Color.ORANGE,
-            Color.PINK,
-            Color.WHITE,
-            Color.GRAY
-    };
+//    private static final Color[] COLORS = {
+//            Color.BLUE,
+//            Color.RED,
+//            Color.YELLOW,
+//            Color.GREEN,
+//            Color.MAGENTA,
+//            Color.CYAN,
+//            Color.ORANGE,
+//            Color.PINK,
+//            Color.WHITE,
+//            Color.GRAY
+//    };
 
     private GameParams params = new GameParams(DEFAULT_ROW_COUNT, DEFAULT_COL_COUNT, DEFAULT_COLOR_COUNT);
     private Game game = new Game();
@@ -47,7 +55,7 @@ public class MainForm extends JFrame {
 
 
     public MainForm() {
-        this.setTitle("Сапер");
+        this.setTitle("Раскраска");
         this.setContentPane(panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
@@ -61,6 +69,7 @@ public class MainForm extends JFrame {
         JTableUtils.initJTableForArray(tableGameField, DEFAULT_CELL_SIZE, false, false, false, false);
         tableGameField.setIntercellSpacing(new Dimension(0, 0));
         tableGameField.setEnabled(false);
+
 
         tableGameField.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             final class DrawComponent extends Component {
@@ -93,21 +102,21 @@ public class MainForm extends JFrame {
 
         dialogParams = new ParamsDialog(params, tableGameField, e -> newGame());
 
-        tableGameField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int row = tableGameField.rowAtPoint(e.getPoint());
-                int col = tableGameField.columnAtPoint(e.getPoint());
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    game.leftMouseClick(row, col);
-                    updateView();
-                }
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    game.rightMouseClick(row, col);
-                    updateView();
-                }
-            }
-        });
+//        tableGameField.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                int row = tableGameField.rowAtPoint(e.getPoint());
+//                int col = tableGameField.columnAtPoint(e.getPoint());
+//                if (SwingUtilities.isLeftMouseButton(e)) {
+//                    game.leftMouseClick(row, col);
+//                    updateView();
+//                }
+//                if (SwingUtilities.isRightMouseButton(e)) {
+//                    game.rightMouseClick(row, col);
+//                    updateView();
+//                }
+//            }
+//        });
 
 
         /*
@@ -115,22 +124,58 @@ public class MainForm extends JFrame {
             сделано так, а не через addKeyListener, так в последнем случае события будет получать компонент с фокусом,
             т.е. если на форме есть, например, кнопка или поле ввода, то все события уйдут этому компоненту
          */
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new KeyEventDispatcher() {
+//        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+//        manager.addKeyEventDispatcher(new KeyEventDispatcher() {
+//            @Override
+//            public boolean dispatchKeyEvent(KeyEvent e) {
+//                if (e.getID() == KeyEvent.KEY_PRESSED) {
+//                    System.out.printf("globalKeyPressed: %s, %s, %s%n",
+//                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
+//                } else if (e.getID() == KeyEvent.KEY_RELEASED) {
+//                    System.out.printf("globalKeyReleased: %s, %s, %s%n",
+//                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
+//                } else if (e.getID() == KeyEvent.KEY_TYPED) {
+//                    System.out.printf("globalKeyTyped: %s, %s, %s%n",
+//                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
+//                }
+//
+//                return false;
+//            }
+//        });
+        Green.addActionListener(new ActionListener() {
             @Override
-            public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED) {
-                    System.out.printf("globalKeyPressed: %s, %s, %s%n",
-                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
-                } else if (e.getID() == KeyEvent.KEY_RELEASED) {
-                    System.out.printf("globalKeyReleased: %s, %s, %s%n",
-                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
-                } else if (e.getID() == KeyEvent.KEY_TYPED) {
-                    System.out.printf("globalKeyTyped: %s, %s, %s%n",
-                            e.getKeyChar(), e.getKeyCode(), e.getExtendedKeyCode());
-                }
+            public void actionPerformed(ActionEvent e) {
 
-                return false;
+            }
+        });
+        Blue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Orange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Yellow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Red.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Violet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
@@ -179,9 +224,9 @@ public class MainForm extends JFrame {
         }));
         menuHelp.add(createMenuItem("О программе", "ctrl+A", null, e -> {
             SwingUtils.showInfoMessageBox(
-                    "Шаблон для создания игры" +
-                            "\n\nАвтор: Соломатин Д.И." +
-                            "\nE-mail: solomatin.cs.vsu.ru@gmail.com",
+                    "Игра Раскраска" +
+                            "\n\nАвтор: Меркушина Д. Г." +
+                            "\nE-mail: dmerkusina@gmail.com",
                     "О программе"
             );
         }));
@@ -223,7 +268,9 @@ public class MainForm extends JFrame {
         if (cellValue <= 0) {
             return;
         }
-        Color color = COLORS[cellValue - 1];
+        Random generator = new Random();
+        int randomIndex = generator.nextInt(colors.length);
+        Color color = new Color(colors[randomIndex][0], colors[randomIndex][1], colors[randomIndex][2]);
 
         int size = Math.min(cellWidth, cellHeight);
         int bound = (int) Math.round(size * 0.1);
@@ -238,12 +285,32 @@ public class MainForm extends JFrame {
         DrawUtils.drawStringInCenter(g2d, font, "" + cellValue, 0, 0, cellWidth, (int) Math.round(cellHeight * 0.95));
     }
 
+
     private void newGame() {
         game.newGame(params.getRowCount(), params.getColCount(), params.getColorCount());
         JTableUtils.resizeJTable(tableGameField,
                 game.getRowCount(), game.getColCount(),
                 tableGameField.getRowHeight(), tableGameField.getRowHeight()
         );
+//        public static void pokras (JTable tab){
+//            for (int i = 0, i < DEFAULT_ROW_COUNT_COUNT, i++){
+//
+//            }
+//            tab.getCellEditor()
+//            tab.setDefaultRenderer(Object.class , new DefaultTableCellRenderer() {
+//                @Override
+//                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                    JLabel c = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, false, row, column);
+//                    Random generator = new Random();
+//                    int randomIndex = generator.nextInt(colors.length);
+//                    Color color = new Color(colors[randomIndex][0], colors[randomIndex][1], colors[randomIndex][2]);
+//                    c.setBackground(color);
+//                    c.setBackground(new JLabel().getBackground());
+//                    return c;
+//                }
+//            });
+//        }
+//        pokras(tableGameField);
         time = 0;
         timer.start();
         updateView();

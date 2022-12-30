@@ -31,23 +31,23 @@ public class Game {
         this.colorCount = colorCount;
     }
 
-    public void leftMouseClick(int row, int col) {
-        int rowCount = getRowCount(), colCount = getColCount();
-        if (row < 0 || row >= rowCount || col < 0 || col >= colCount) {
-            return;
-        }
+//    public void leftMouseClick(int row, int col) {
+//        int rowCount = getRowCount(), colCount = getColCount();
+//        if (row < 0 || row >= rowCount || col < 0 || col >= colCount) {
+//            return;
+//        }
+//
+//        field[row][col] = rnd.nextInt(getColorCount()) + 1;
+//    }
 
-        field[row][col] = rnd.nextInt(getColorCount()) + 1;
-    }
-
-    public void rightMouseClick(int row, int col) {
-        int rowCount = getRowCount(), colCount = getColCount();
-        if (row < 0 || row >= rowCount || col < 0 || col >= colCount) {
-            return;
-        }
-
-        field[row][col] = 0;
-    }
+//    public void rightMouseClick(int row, int col) {
+//        int rowCount = getRowCount(), colCount = getColCount();
+//        if (row < 0 || row >= rowCount || col < 0 || col >= colCount) {
+//            return;
+//        }
+//
+//        field[row][col] = 0;
+//    }
 
     public int getRowCount() {
         return field == null ? 0 : field.length;
